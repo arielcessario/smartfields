@@ -1,0 +1,97 @@
+<nb-card>
+  <nb-card-header>
+    Ambiente
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form [formGroup]="form" *ngIf="form">
+      <!-- Document type and number -->
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Tipo</label>
+            <select class="form-control" formControlName="tipo">
+              <option value="0">Alto</option>
+              <option value="1">Medio</option>
+              <option value="2">Bajo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Cob. Forrajera</label>
+            <input [tooltip]="formErrors['cobForrajera']" placement="bottom" triggers="focus keyup keydown" type="number"
+              formControlName="cobForrajera" class="form-control" id="cobForrajera" placeholder="cobForrajera"
+              [ngClass]="{'form-control-danger': form.controls['cobForrajera'].invalid}">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Hectareas</label>
+            <input [tooltip]="formErrors['hectareas']" placement="bottom" triggers="focus keyup keydown" type="number"
+              formControlName="hectareas" class="form-control" id="hectareas" placeholder="Hectareas" [ngClass]="{'form-control-danger': form.controls['hectareas'].invalid}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Bebederos</label>
+            <input [tooltip]="formErrors['bebederos']" placement="bottom" triggers="focus keyup keydown" type="number"
+              formControlName="bebederos" class="form-control" id="bebederos" placeholder="Bebederos" [ngClass]="{'form-control-danger': form.controls['bebederos'].invalid}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Coeficiente</label>
+            <input [tooltip]="formErrors['coeficiente']" placement="bottom" triggers="focus keyup keydown" type="number"
+              formControlName="coeficiente" class="form-control" id="coeficiente" placeholder="Coeficiente" [ngClass]="{'form-control-danger': form.controls['coeficiente'].invalid}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Disponibilidad</label>
+            <input [tooltip]="formErrors['disponibilidad']" placement="bottom" triggers="focus keyup keydown" type="number"
+              formControlName="disponibilidad" class="form-control" id="disponibilidad" placeholder="Disponibilidad"
+              [ngClass]="{'form-control-danger': form.controls['disponibilidad'].invalid}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Pluviometro</label>
+            <select class="form-control" formControlName="pluviometro">
+              <option value="0">DNI</option>
+              <option value="1">CI</option>
+              <option value="2">Pasaporte</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="getMapClick($event)" (mapReady)="mapReady($event)">
+              <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [iconUrl]="'./assets/icons/marker-area.png'"
+                (markerClick)="getMarkerPosition($event)"></agm-marker>
+              <agm-polygon [paths]="paths" [clickable]="false" [draggable]="true" [fillColor]="'#4b9679'"
+                [strokeWeight]="'1'" [strokeColor]="'#ffffff'"></agm-polygon>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="btn-group">
+      <button *ngIf="form" type="button" [disabled]="!form.valid" (click)="submit()" class="btn btn-primary">Guardar</button>
+
+      <button *ngIf="form" type="button" (click)="submit()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </nb-card-body>
+</nb-card>

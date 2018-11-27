@@ -1,0 +1,119 @@
+<nb-card>
+  <nb-card-header>
+    Usuario
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form [formGroup]="form" *ngIf="form">
+      <!-- Document type and number -->
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Documento</label>
+            <div class="row">
+              <div class="col-sm-5">
+                <select class="form-control">
+                  <option value="0">DNI</option>
+                  <option value="1">CI</option>
+                  <option value="2">Pasaporte</option>
+                </select>
+              </div>
+              <div class="col-sm-7">
+                <input [tooltip]="formErrors['documentNumber']" placement="bottom" triggers="focus keyup keydown" type="text"
+                  formControlName="documentNumber" class="form-control" id="documentNumber" [ngClass]="{'form-control-danger': form.controls['documentNumber'].invalid}"
+                  placeholder="Nro. de Documento">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Nombre</label>
+            <input [tooltip]="formErrors['name']" placement="bottom" triggers="focus keyup keydown" type="text"
+              formControlName="name" class="form-control" id="inputName" placeholder="Nombre" [ngClass]="{'form-control-danger': form.controls['name'].invalid}">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Apellido</label>
+            <input [tooltip]="formErrors['lastName']" placement="bottom" triggers="focus keyup keydown" type="text"
+              formControlName="lastName" class="form-control" id="lastName" placeholder="Apellido" [ngClass]="{'form-control-danger': form.controls['lastName'].invalid}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Teléfono</label>
+            <div class="row">
+              <div class="col-sm-3">
+                <input min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" [tooltip]="formErrors['phonePrefix']"
+                  placement="bottom" triggers="focus keyup keydown" type="number" formControlName="phonePrefix" class="form-control"
+                  id="phonePrefix" placeholder="Pref." [ngClass]="{'form-control-danger': form.controls['phonePrefix'].invalid}">
+              </div>
+              <div class="col-sm-7">
+                <input min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" [tooltip]="formErrors['phoneNumber']"
+                  placement="bottom" triggers="focus keyup keydown" type="number" formControlName="phoneNumber" class="form-control"
+                  id="phoneNumber" placeholder="Nro. de teléfono" [ngClass]="{'form-control-danger': form.controls['phoneNumber'].invalid}">
+              </div>
+              <div class="col-sm-2">
+                <nb-checkbox formControlName="mobile">Celular</nb-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group  tooltip-danger">
+            <label for="inputEmail">Email</label>
+            <input [tooltip]="formErrors['mail']" placement="bottom" triggers="focus keyup keydown" type="email"
+              formControlName="mail" class="form-control " id="inputEmail" [ngClass]="{'form-control-danger': form.controls['mail'].invalid}"
+              placeholder="Email">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+      <div class="row">
+        <div class="col-sm-6 ">
+
+          <div class="">
+            <div class="form-group  tooltip-danger">
+              <label for="password">Password</label>
+              <input pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$" [tooltip]="formErrors['password']"
+                placement="bottom" triggers="focus keyup keydown" type="password" formControlName="password" class="form-control"
+                id="password" placeholder="Password" [ngClass]="{'form-control-danger': form.controls['password'].invalid}">
+            </div>
+          </div>
+          <label for="inputEmail">Establecimientos</label>
+          <div class="table-format" [ngClass]="{'form-control-danger': form.controls['establecimientos'].invalid}">
+            <div class="form-group" formArrayName="establecimientos" *ngFor="let order of form.controls['establecimientos'].controls; let i = index;let odd=odd;"
+              [ngClass]="{ odd: odd, even: even }">
+
+              <nb-checkbox [formControlName]="i">
+                {{establecimientosList[i].descripcion}}
+              </nb-checkbox>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-sm-6 ">
+          <div class="form-group  tooltip-danger">
+            <label for="password">Permisos</label>
+            <div class="table-format-no-hover custom-tree">
+              <tree-root #tree [nodes]="nodes" class="" [options]="options" (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)"></tree-root>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <div class="btn-group">
+      <button *ngIf="form" type="button" [disabled]="!form.valid" (click)="submit()" class="btn btn-primary">Guardar</button>
+
+      <button *ngIf="form" type="button" (click)="submit()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </nb-card-body>
+</nb-card>

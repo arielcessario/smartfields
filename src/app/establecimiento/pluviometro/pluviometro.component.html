@@ -1,0 +1,45 @@
+<nb-card>
+  <nb-card-header>
+    Pluviometro
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form [formGroup]="form" *ngIf="form">
+      <!-- Document type and number -->
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Descripción</label>
+            <input [tooltip]="formErrors['description']" placement="bottom" triggers="focus keyup keydown" type="text"
+              formControlName="description" class="form-control" id="description" placeholder="Descripción" [ngClass]="{'form-control-danger': form.controls['description'].invalid}">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Fecha Instalacion</label>
+            <input [tooltip]="formErrors['fechaInstalacion']" placement="bottom" triggers="focus keyup keydown" type="date"
+              formControlName="fechaInstalacion" class="form-control" id="fechaInstalacion" placeholder="fechaInstalacion"
+              [ngClass]="{'form-control-danger': form.controls['fechaInstalacion'].invalid}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="getMapClick($event)" (mapReady)="mapReady($event)">
+              <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" (markerClick)="getMarkerPosition($event)"></agm-marker>
+              <agm-polygon [paths]="paths" [clickable]="false" [draggable]="true" ></agm-polygon>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="btn-group">
+      <button *ngIf="form" type="button" [disabled]="!form.valid" (click)="submit()" class="btn btn-primary">Guardar</button>
+
+      <button *ngIf="form" type="button" (click)="submit()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </nb-card-body>
+</nb-card>

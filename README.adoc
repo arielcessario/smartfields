@@ -1,0 +1,3 @@
+= Proyecto: el Sistema de Ganadería Inteligente (sgi) – front-end
+
+El front-end del Sistema de Ganadería Inteligente hecho en Angular 6
