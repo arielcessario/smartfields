@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         },
         {
           title: 'Rodeos',
-          link: '/main1'
+          link: '/establecimiento/rodeos'
         }
       ]
     },

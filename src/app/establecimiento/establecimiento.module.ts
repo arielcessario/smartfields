@@ -15,6 +15,8 @@ import { PotreroComponent } from './potrero/potrero.component';
 import { AmbienteComponent } from './ambiente/ambiente.component';
 import { GanadosComponent } from './ganados/ganados.component';
 import { GanadoComponent } from './ganado/ganado.component';
+import { RodeosComponent } from './rodeos/rodeos.component';
+import { RodeoComponent } from './rodeo/rodeo.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { GanadoComponent } from './ganado/ganado.component';
     PotreroComponent,
     AmbienteComponent,
     GanadosComponent,
-    GanadoComponent
+    GanadoComponent,
+    RodeosComponent,
+    RodeoComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DatosBasicosComponent } from './datos-basicos/datos-basicos.component';
 import { GanadosComponent } from './ganados/ganados.component';
 import { GanadoComponent } from './ganado/ganado.component';
+import { RodeosComponent } from './rodeos/rodeos.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,11 @@ const routes: Routes = [
       {
         path: 'ganado/:id',
         component: GanadoComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'rodeos',
+        component: RodeosComponent,
         canActivate: [AuthGuard]
       },
     ]
