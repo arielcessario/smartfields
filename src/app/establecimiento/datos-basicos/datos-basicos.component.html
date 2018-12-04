@@ -42,14 +42,14 @@
         <div class="col-sm-3">
           <div class="form-group  tooltip-danger">
             <label for="inputFirstName">Hectareas</label>
-            <input [tooltip]="formErrors['hectareas']" placement="bottom" triggers="focus keyup keydown" type="text"
+            <input [tooltip]="formErrors['hectareas']" placement="bottom" triggers="focus keyup keydown" type="number"
               formControlName="hectareas" class="form-control" id="hectareas" placeholder="Hectareas" [ngClass]="{'form-control-danger': form.controls['hectareas'].invalid}">
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group  tooltip-danger">
             <label for="inputFirstName">Cantidad de Potreros</label>
-            <input [tooltip]="formErrors['cantidadPotreros']" placement="bottom" triggers="focus keyup keydown" type="text"
+            <input [tooltip]="formErrors['cantidadPotreros']" placement="bottom" triggers="focus keyup keydown" type="number"
               formControlName="cantidadPotreros" class="form-control" id="cantidadPotreros" placeholder="Cantidad de Potreros"
               [ngClass]="{'form-control-danger': form.controls['cantidadPotreros'].invalid}">
           </div>
@@ -58,24 +58,25 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="form-group  tooltip-danger">
-            <label for="inputFirstName">Zona</label>
-            <select class="form-control" formControlName="zona">
-              <option value="0">DNI</option>
-              <option value="1">CI</option>
-              <option value="2">Pasaporte</option>
+            <label for="inputFirstName">Región</label>
+            <select class="form-control" formControlName="region">
+              <option value="0">Region A</option>
+              <option value="1">Region B</option>
+              <option value="2">Region C</option>
             </select>
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group  tooltip-danger">
-            <label for="inputFirstName">Región</label>
-            <select class="form-control" formControlName="region">
-              <option value="0">DNI</option>
-              <option value="1">CI</option>
-              <option value="2">Pasaporte</option>
+            <label for="inputFirstName">Zona</label>
+            <select class="form-control" formControlName="zona">
+              <option value="0">Zona 1</option>
+              <option value="1">Zona 2</option>
+              <option value="2">Zona 3</option>
             </select>
           </div>
         </div>
+        
         <div class="col-sm-6">
           <div class="form-group  tooltip-danger">
             <label for="inputFirstName">Dirección</label>
@@ -119,7 +120,7 @@
     <div class="btn-group">
       <button *ngIf="form" type="button" [disabled]="!form.valid" (click)="submit()" class="btn btn-primary">Guardar</button>
 
-      <button *ngIf="form" type="button" (click)="submit()" class="btn btn-danger">Cancelar</button>
+      <button *ngIf="form" type="button" (click)="cancel()" class="btn btn-danger">Cancelar</button>
     </div>
   </nb-card-body>
 </nb-card>

@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     // this.authenticationService.login(this.mail, this.password).subscribe(resp =>{
     //   console.log(resp);
     // });
+    console.log("entre");
     if (this.authenticationService.login(this.mail, this.password)) {
       this.authenticationService.persistLogin({
         token: 'aaaaaaaaaaaaaaaaaa',

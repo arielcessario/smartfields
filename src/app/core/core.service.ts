@@ -18,6 +18,7 @@ export class CoreService {
   public getSearch: Subject<any> = new Subject<any>();
   public getLoadingStatus: Subject<any> = new Subject<any>();
   public onSetEstablecimientoId: Subject<number> = new Subject<number>();
+  public onSetGanadoId: Subject<number> = new Subject<number>();
 
   constructor() {}
 
@@ -56,6 +57,16 @@ export class CoreService {
     }
     this.onSetEstablecimientoId.next(establecimientoId);
   }
+
+  public setGanado(ganadoId) {
+    if (ganadoId === -1) {
+      localStorage.removeItem('ganadoId');
+    } else {
+      localStorage.setItem('ganadoId', ganadoId);
+    }
+    this.onSetGanadoId.next(ganadoId);
+  }
+
 
   public returnErrors(errors: any) {
     if (!errors) {

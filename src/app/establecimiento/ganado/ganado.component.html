@@ -1,0 +1,92 @@
+<nb-card>
+  <nb-card-header>
+    Ganado
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <form [formGroup]="form" *ngIf="form">
+      <!-- Document type and number -->
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Nro. Ganado</label>
+            <input [tooltip]="formErrors['nroGanado']" placement="bottom" triggers="focus keyup keydown" type="text"
+              formControlName="nroGanado" class="form-control" id="nroGanado" placeholder="Nro. Ganado" [ngClass]="{'form-control-danger': form.controls['nroGanado'].invalid}">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Fecha</label>
+            <input [tooltip]="formErrors['fechaNacimiento']" placement="bottom" triggers="focus keyup keydown" type="date"
+              formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" placeholder="Fecha Nacimiento" [ngClass]="{'form-control-danger': form.controls['fechaNacimiento'].invalid}">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Raza</label>
+            <select class="form-control" formControlName="raza">
+              <option value="0">Raza A</option>
+              <option value="1">Raza B</option>
+              <option value="2">Raza C</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Sexo</label>
+            <select class="form-control" formControlName="sexo">
+              <option value="0">Macho</option>
+              <option value="1">Hembra</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Categoría</label>
+            <select class="form-control" formControlName="categoria">
+              <option value="0">Categoria 1</option>
+              <option value="1">Categoria 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Estado</label>
+            <select class="form-control" formControlName="estado">
+              <option value="0">Estado 1</option>
+              <option value="1">Estado 2</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <nb-checkbox formControlName="castracion">Castración</nb-checkbox>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group  tooltip-danger">
+            <label for="inputName">Peso</label>
+            <input [tooltip]="formErrors['peso']" placement="bottom" triggers="focus keyup keydown" type="text"
+              formControlName="peso" class="form-control" id="peso" [ngClass]="{'form-control-danger': form.controls['peso'].invalid}">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group  tooltip-danger">
+            <label for="inputFirstName">Rodeo</label>
+            <select class="form-control" formControlName="rodeo">
+              <option value="0">Rodeo 1</option>
+              <option value="1">Rodeo 2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>
+    </form>
+    <div class="btn-group">
+      <button *ngIf="form" type="button" [disabled]="!form.valid" (click)="submit()" class="btn btn-primary">Guardar</button>
+
+      <button *ngIf="form" type="button" (click)="cancel()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </nb-card-body>
+</nb-card>

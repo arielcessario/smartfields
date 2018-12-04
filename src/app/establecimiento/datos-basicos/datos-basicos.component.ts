@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { CoreService } from '../../core/core.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'smf-datos-basicos',
@@ -31,7 +32,7 @@ export class DatosBasicosComponent implements OnInit {
   public region = [];
   public zona = [];
   public direccion = '';
-  public hectareas = '';
+  public hectareas = 0;
   public cantidadPotreros = 0;
   public phonePrefix = '';
   public phoneNumber = '';
@@ -57,29 +58,27 @@ export class DatosBasicosComponent implements OnInit {
   validationMessages = {
     razonSocial: {
       required: 'Requerido',
-      minlength: 'Mínimo 15 caracteres',
-      maxlength: 'Máximo 15 caracteres'
+      minlength: 'La Razón Social debe tener mas de 1 caracter',
+      maxlength: 'La Razón Social debe tener hasta 50 caracteres'
     },
     cuit: {
       required: 'Requerido',
-      maxlength: 'El CUIT debe tener 15 caracteres',
-      minlength: 'El CUIT debe tener 15 caracteres'
+      maxlength: 'El CUIT debe tener 13 caracteres',
+      minlength: 'El CUIT debe tener 13 caracteres'
     },
     fecha: {
       required: 'Requerido',
-      maxlength: 'Maximo 50 caracteres'
+      maxlength: 'Maximo 10 caracteres',
     },
     alias: {
       required: 'Requerido',
-      max: 'El hectareas debe tener al menos seis (6) letras y/o números'
+      maxlength: 'El Alias debe tener hasta 50 caracteres'
     },
     region: {
       required: 'Requerido',
-      max: 'El hectareas debe tener al menos seis (6) letras y/o números'
     },
     zona: {
       required: 'Requerido',
-      max: 'El hectareas debe tener al menos seis (6) letras y/o números'
     },
     direccion: {
       required: 'Requerido',
@@ -87,25 +86,22 @@ export class DatosBasicosComponent implements OnInit {
     },
     hectareas: {
       required: 'Requerido',
-      minlength: 'El hectareas debe tener al menos seis (6) letras y/o números',
-      pattern:
-        'El hectareas debe tener al menos una letra en mayúscula y un número'
+      min: 'La hectareas debe ser mayor o igual a cero'
     },
     cantidadPotreros: {
       required: 'Requerido',
-      minlength: 'El hectareas debe tener al menos seis (6) letras y/o números'
+      min: 'La cantidad de potreros debe ser mayor o igual a cero'
     },
     phonePrefix: {
-      required: 'Requerido',
-      minlength: 'El hectareas debe tener al menos seis (6) letras y/o números'
+      required: 'Requerido'
     },
     phoneNumber: {
-      required: 'Requerido',
-      minlength: 'El hectareas debe tener al menos seis (6) letras y/o números'
+      required: 'Requerido'
     },
     mail: {
       required: 'Requerido',
-      email: 'Formato de mail incorrecto'
+      email: 'Formato de mail incorrecto',
+      maxLength: 'El mail debe tener hasta 50 carateres'
     }
   };
 
@@ -113,7 +109,8 @@ export class DatosBasicosComponent implements OnInit {
     private coreService: CoreService,
     private localStorage: LocalStorage,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -192,22 +189,36 @@ export class DatosBasicosComponent implements OnInit {
     // Checkbox de cantidadPotreros
 
     const group: any = {
-      razonSocial: [this.razonSocial, [Validators.required]],
+      razonSocial: [
+        this.razonSocial, 
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50)
+        ]
+      ],
       cuit: [
         this.cuit,
         [
           Validators.required,
-          Validators.minLength(15),
-          Validators.maxLength(15)
+          Validators.minLength(13),
+          Validators.maxLength(13)
         ]
       ],
       fecha: [this.fecha, [Validators.required]],
-      alias: [this.alias, [Validators.required]],
+      alias: [
+        this.alias, 
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50)
+        ]
+      ],
       region: [this.region, [Validators.required]],
       zona: [this.zona, [Validators.required]],
       direccion: [this.direccion, [Validators.required]],
-      hectareas: [this.hectareas, [Validators.required]],
-      cantidadPotreros: [this.cantidadPotreros, [Validators.required]],
+      hectareas: [this.hectareas, [Validators.required,Validators.min(0)]],
+      cantidadPotreros: [this.cantidadPotreros, [Validators.required,Validators.min(0)]],
       phonePrefix: [
         this.phonePrefix,
         [Validators.required, Validators.max(9999)]
@@ -230,7 +241,7 @@ export class DatosBasicosComponent implements OnInit {
     form.controls['region'].setValue(0);
     form.controls['zona'].setValue(0);
     form.controls['direccion'].setValue('');
-    form.controls['hectareas'].setValue('');
+    form.controls['hectareas'].setValue(0);
     form.controls['cantidadPotreros'].setValue(0);
     form.controls['phonePrefix'].setValue('');
     form.controls['phoneNumber'].setValue('');
@@ -285,5 +296,9 @@ export class DatosBasicosComponent implements OnInit {
     };
 
     return validator;
+  }
+
+  cancel(){
+    this.router.navigate(['../']);
   }
 }

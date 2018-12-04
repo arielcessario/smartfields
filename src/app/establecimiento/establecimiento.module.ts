@@ -13,6 +13,8 @@ import { AgmCoreModule } from '@agm/core';
 import { PotrerosComponent } from './potreros/potreros.component';
 import { PotreroComponent } from './potrero/potrero.component';
 import { AmbienteComponent } from './ambiente/ambiente.component';
+import { GanadosComponent } from './ganados/ganados.component';
+import { GanadoComponent } from './ganado/ganado.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AmbienteComponent } from './ambiente/ambiente.component';
     PluviometroComponent,
     PotrerosComponent,
     PotreroComponent,
-    AmbienteComponent
+    AmbienteComponent,
+    GanadosComponent,
+    GanadoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,14 @@
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'smf-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: 'smf-ganados',
+  templateUrl: './ganados.component.html',
+  styleUrls: ['./ganados.component.scss']
 })
-export class UsuariosComponent implements OnInit {
+export class GanadosComponent implements OnInit {
   settings = {
     mode: 'external',
     actions: {
@@ -31,32 +31,40 @@ export class UsuariosComponent implements OnInit {
       confirmDelete: true
     },
     columns: {
-      mail: {
-        title: 'Mail',
+      nroGanado: {
+        title: 'NroGanado',
         type: 'string'
       },
-      type: {
-        title: 'Tipo',
+      fechaNacimiento: {
+        title: 'Fecha Nac.',
         type: 'string'
       },
-      id_number: {
-        title: 'Número de Documento',
+      raza: {
+        title: 'Raza',
         type: 'string'
       },
-      name: {
-        title: 'Nombre',
+      sexo: {
+        title: 'Sexo',
         type: 'string'
       },
-      last_name: {
-        title: 'Apellido',
+      categoria: {
+        title: 'Categoria',
         type: 'string'
       },
-      facility: {
-        title: 'Establecimiento',
+      estado: {
+        title: 'Estado',
         type: 'string'
       },
-      phone: {
-        title: 'Teléfono',
+      castracion: {
+        title: 'Castracion',
+        type: 'string'
+      },
+      peso: {
+        title: 'Peso',
+        type: 'string'
+      },
+      rodeo: {
+        title: 'Rodeo',
         type: 'string'
       }
     }
@@ -66,10 +74,12 @@ export class UsuariosComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   data = [];
 
-  constructor(private router: Router, private localStorage: LocalStorage) {}
+  constructor(private router: Router, private localStorage: LocalStorage) {
+
+  }
 
   ngOnInit() {
-    this.localStorage.getItem<any>('usuarios').subscribe(d => {
+    this.localStorage.getItem<any>('ganados').subscribe(d => {
       if (d) {
         console.log(d);
         this.data = d;
@@ -90,7 +100,7 @@ export class UsuariosComponent implements OnInit {
       if (encontrado > -1) {
         this.data.splice(encontrado, 1);
         this.source.load(this.data);
-        this.localStorage.setItem('usuarios', this.data).subscribe(
+        this.localStorage.setItem('ganados', this.data).subscribe(
           arg => {
             console.log(arg);
           },
@@ -99,16 +109,18 @@ export class UsuariosComponent implements OnInit {
           }
         );
       }
-    } else {
-      // event.confirm.reject();
     }
   }
+  
 
-  update(event): void {
-    this.router.navigate(['configuracion', 'usuario', event.data.id]);
+    update(event): void {
+      this.router.navigate(['establecimiento', 'ganado', event.data.id]);
+    }
+  
+    create() {
+      this.router.navigate(['establecimiento', 'ganado']);
+    }
+  
+
   }
 
-  create() {
-    this.router.navigate(['configuracion', 'usuario']);
-  }
-}

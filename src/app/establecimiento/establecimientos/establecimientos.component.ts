@@ -62,7 +62,7 @@ export class EstablecimientosComponent implements OnInit {
       },
       hectareas: {
         title: 'Hectáreas',
-        type: 'string'
+        type: 'number'
       },
       cantidadPotreros: {
         title: 'Cant. Potreros',
@@ -70,11 +70,11 @@ export class EstablecimientosComponent implements OnInit {
       },
       telefono: {
         title: 'Teléfono',
-        type: 'string'
+        type: 'number'
       },
       celular: {
         title: 'Celular',
-        type: 'string'
+        type: 'number'
       },
       mail: {
         title: 'Mail',
@@ -113,7 +113,7 @@ export class EstablecimientosComponent implements OnInit {
       if (encontrado > -1) {
         this.data.splice(encontrado, 1);
         this.source.load(this.data);
-        this.localStorage.setItem('pluviometros', this.data).subscribe(
+        this.localStorage.setItem('datosBasicos', this.data).subscribe(
           arg => {
             console.log(arg);
           },

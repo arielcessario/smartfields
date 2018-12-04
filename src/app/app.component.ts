@@ -34,8 +34,8 @@ export class AppComponent implements OnInit {
           link: '/establecimiento/potreros'
         },
         {
-          title: 'Animales',
-          link: '/main1'
+          title: 'Ganados',
+          link: '/establecimiento/ganados'
         },
         {
           title: 'Rodeos',

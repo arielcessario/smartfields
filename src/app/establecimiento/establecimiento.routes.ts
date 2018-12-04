@@ -9,6 +9,8 @@ import { AuthGuard } from './../core/auth/auth-guard.service';
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DatosBasicosComponent } from './datos-basicos/datos-basicos.component';
+import { GanadosComponent } from './ganados/ganados.component';
+import { GanadoComponent } from './ganado/ganado.component';
 
 const routes: Routes = [
   {
@@ -68,7 +70,22 @@ const routes: Routes = [
         path: 'potrero/:id/ambiente',
         component: AmbienteComponent,
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'ganados',
+        component: GanadosComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'ganado',
+        component: GanadoComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'ganado/:id',
+        component: GanadoComponent,
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];

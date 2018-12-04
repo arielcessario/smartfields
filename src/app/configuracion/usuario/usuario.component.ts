@@ -70,7 +70,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   validationMessages = {
     documentNumber: {
       required: 'Requerido',
-      minlength: 'El DNI debe tener 15 caracteres',
+      minlength: 'El DNI debe tener 7 caracteres',
       maxlength: 'El DNI debe tener 15 caracteres'
     },
     name: {
