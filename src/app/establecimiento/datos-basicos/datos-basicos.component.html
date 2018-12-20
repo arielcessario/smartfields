@@ -18,7 +18,7 @@
         <div class="col-sm-3">
           <div class="form-group  tooltip-danger">
             <label for="inputFirstName">CUIT</label>
-            <input [tooltip]="formErrors['cuit']" placement="bottom" triggers="focus keyup keydown" type="text"
+            <input [tooltip]="formErrors['cuit']" placement="bottom" triggers="focus keyup keydown" type="text" mask="00-00000000-0"
               formControlName="cuit" class="form-control" id="cuit" placeholder="CUIT" [ngClass]="{'form-control-danger': form.controls['cuit'].invalid}">
           </div>
         </div>

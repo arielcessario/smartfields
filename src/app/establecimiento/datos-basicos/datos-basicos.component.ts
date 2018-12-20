@@ -63,8 +63,8 @@ export class DatosBasicosComponent implements OnInit {
     },
     cuit: {
       required: 'Requerido',
-      maxlength: 'El CUIT debe tener 13 caracteres',
-      minlength: 'El CUIT debe tener 13 caracteres'
+      maxlength: 'El CUIT debe tener 11 caracteres',
+      minlength: 'El CUIT debe tener 11 caracteres'
     },
     fecha: {
       required: 'Requerido',
@@ -171,7 +171,7 @@ export class DatosBasicosComponent implements OnInit {
 
         this.localStorage.setItem('datosBasicos', p).subscribe(
           arg => {
-            this.location.go('/establecimiento/datos-basicos/' + this.id);
+            this.router.navigate(['/establecimiento/establecimientos']);
             this.coreService.setEstablecimiento(this.id);
           },
           err => {
@@ -201,8 +201,8 @@ export class DatosBasicosComponent implements OnInit {
         this.cuit,
         [
           Validators.required,
-          Validators.minLength(13),
-          Validators.maxLength(13)
+          Validators.minLength(11),
+          Validators.maxLength(11)
         ]
       ],
       fecha: [this.fecha, [Validators.required]],
@@ -228,7 +228,12 @@ export class DatosBasicosComponent implements OnInit {
         [Validators.required, Validators.max(9999999)]
       ],
       mobile: [this.mobile],
-      mail: [this.mail, [Validators.email]]
+      mail: [this.mail, 
+        [
+          Validators.email, 
+          Validators.maxLength(50)
+        ]
+      ]
     };
 
     this.fb = new FormBuilder();

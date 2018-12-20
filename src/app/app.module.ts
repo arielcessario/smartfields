@@ -9,7 +9,7 @@ import { Routing } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import {
@@ -42,6 +42,8 @@ import { TreeModule } from 'angular-tree-component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { environment } from '../environments/environment';
     // ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: false }),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    DeviceDetectorModule.forRoot()
   ],
   providers: [
     NbSidebarService,
@@ -83,7 +86,9 @@ import { environment } from '../environments/environment';
     CoreService,
     AuthenticationService,
     DbConnectService,
-    AuthGuard
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

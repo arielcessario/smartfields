@@ -87,6 +87,45 @@ export class AppComponent implements OnInit {
       ]
     },
     {
+      title: 'Ejecución',
+      icon: 'nb-star',
+      link: '/main',
+      children: [
+        {
+          title: 'Plan vs Actual',
+          link: '/main1'
+        },
+        {
+          title: 'Lluvias',
+          link: '/main1'
+        },
+        {
+          title: 'Tacto',
+          link: '/main1'
+        },
+        {
+          title: 'Requerimientos',
+          link: '/main1'
+        },
+        {
+          title: 'Disponibilidad',
+          link: '/main1'
+        },
+        {
+          title: 'Rotación',
+          link: '/main1'
+        },
+        {
+          title: 'Actividades',
+          link: '/main1'
+        },
+        {
+          title: 'Alertas',
+          link: '/main1'
+        }
+      ]
+    },
+    {
       title: 'Reportes',
       icon: 'nb-list',
       link: '/main',

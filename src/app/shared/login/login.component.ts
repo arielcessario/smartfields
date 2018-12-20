@@ -16,20 +16,24 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log('entra');
   }
 
   login() {
-    // this.authenticationService.login(this.mail, this.password).subscribe(resp =>{
-    //   console.log(resp);
-    // });
-    console.log("entre");
-    if (this.authenticationService.login(this.mail, this.password)) {
-      this.authenticationService.persistLogin({
-        token: 'aaaaaaaaaaaaaaaaaa',
-        user: 'Ariel Cessario'
-      });
-      this.router.navigate(['establecimiento', 'establecimientos']);
-    }
+    // if (this.authenticationService.login(this.mail, this.password)) {
+    //   this.authenticationService.persistLogin({
+    //     token: 'aaaaaaaaaaaaaaaaaa',
+    //     user: 'Ariel Cessario'
+    //   });
+    //   this.router.navigate(['establecimiento', 'establecimientos']);
+    // }
+    this.authenticationService.login(this.mail, this.password)
+    .subscribe(
+      resp=>
+      {
+        this.authenticationService.persistLogin({
+              resp
+            });
+            this.router.navigate(['establecimiento', 'establecimientos']);
+      });  
   }
 }

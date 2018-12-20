@@ -21,7 +21,7 @@ export class DbConnectService implements OnInit {
     // if (this.config.getEnv() === 'prod') {
     // this._baseUrl = './assets/server/api.php';
     // } else {
-    this._baseUrl = './server/api.php';
+    this._baseUrl = 'https://master.sgi.dev.automacity.com/api/';
     // }
   }
 

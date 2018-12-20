@@ -1,28 +1,48 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, config } from 'rxjs';
 import { CoreService } from '../core.service';
 // import { AuthService } from "angular2-social-login";
 import { DbConnectService } from '../db-connect.service';
 import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 import { Route, Router } from '@angular/router';
+import { sha256, sha224 } from 'js-sha256';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { environment } from './../../../environments/environment';
+import { Session } from 'src/app/model/session';
+
+//const endpoint = 'https://master.sgi.dev.automacity.com/api/';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
+
+declare var jsSHA: any; 
 
 @Injectable()
 export class AuthenticationService {
   public token: string;
   sub: Observable<Object>;
   ret: any;
-  // constructor(){};
+  jsSHA: any;
+  shaObj:any;
+  hash:string;
+  deviceInfo = null;
   constructor(
-    private http: Http,
+    //private http: Http,
     // public _auth: AuthService,
     public dbConnectService: DbConnectService,
     public coreService: CoreService,
-    public router: Router
+    public router: Router,
+    private http: HttpClient,
+    private deviceService: DeviceDetectorService
   ) {
     // set token if saved in local storage
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
+
   }
 
   // login(username: string, password: string): Observable<boolean> {
@@ -43,22 +63,46 @@ export class AuthenticationService {
   //     ));
   // }
 
-  login(username: string, password: string){
-    return true;
-  }
+  login(username: string, password: string): Observable<boolean> {
+    const hasherPwd = sha256(password);
+    
+    this.shaObj = new jsSHA("SHA-1", "TEXT");
+    this.shaObj.update("hello@example.com");
+    this.hash = this.shaObj.getHash("B64",{"b64Pad" : ""});
+    const userHash = this.hash.replace('+', '-').replace('/', '_').replace('=', '');
+    this.deviceInfo = this.deviceService.userAgent.substring(0,64);
+
+    return this.http.post<any>(`${environment.apiUrl}` + '/users/'+userHash+'/sessions/',
+        { passwd:hasherPwd, 
+          persistence:0, 
+          description: this.deviceInfo//, "Firefox 63 on Ubuntu 16.04"
+        }, httpOptions)
+        .pipe(
+          map((response: Session) => {
+            this.persistLogin(response);
+          }),
+          catchError((err: Response, caught: Observable<any>) => {
+            this.coreService.setLoginStatus({ isLogged: false });
+            return throwError(err);
+          })
+        );
+  };
 
   persistLogin(response) {
+    console.log(response);
     // login successful if there's a jwt token in the response
-    const token = response.token;
-    const user = response.user;
-    if (token) {
+    // const token = response.token;
+    // const user = response.user;
+    // console.log(token);
+    // console.log(user);
+    if (response) {
       // set token property
-      this.token = token;
+      // this.token = token;
 
       // store username and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem(
         'currentUser',
-        JSON.stringify({ user: user, token: token })
+        JSON.stringify({ session: response })
       );
 
       this.coreService.setLoginStatus({ isLogged: true });

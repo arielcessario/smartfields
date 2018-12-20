@@ -17,6 +17,7 @@ import { GanadosComponent } from './ganados/ganados.component';
 import { GanadoComponent } from './ganado/ganado.component';
 import { RodeosComponent } from './rodeos/rodeos.component';
 import { RodeoComponent } from './rodeo/rodeo.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { RodeoComponent } from './rodeo/rodeo.component';
     TooltipModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAokk29N-qA9rUHrnhWrWxLLYhEn8LMtLI'
-    })
+    }),
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: []
